@@ -7,7 +7,6 @@ This can be run with '--test' argument to use fake interfaces with GPIO
 
 import sys
 import ServerModule.Server as server
-from DomainModule.FakePanda import FakePanda
 
 test_run = False
 if len(sys.argv) > 0:
@@ -15,6 +14,7 @@ if len(sys.argv) > 0:
         test_run = True
 
 if test_run:
+    from DomainModule.FakePanda import FakePanda
     robot = FakePanda()
 
 

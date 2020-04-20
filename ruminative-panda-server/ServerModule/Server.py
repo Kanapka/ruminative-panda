@@ -1,6 +1,5 @@
 from flask import Flask, request
 from DomainModule.Direction import Direction
-from DomainModule.FakePanda import FakePanda
 from CommandsModule.MovementCommand import MovementCommand
 
 __panda = None
