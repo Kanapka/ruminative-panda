@@ -45,7 +45,13 @@
     <Compile Include="DomainModule\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DomainModule\FakePanda.py">
+    <Compile Include="Fakes\FakePanda.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Fakes\FakeCamera.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Fakes\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ServerModule\Server.py">
@@ -75,6 +81,7 @@
   <ItemGroup>
     <Folder Include="CommandsModule\" />
     <Folder Include="DomainModule\" />
+    <Folder Include="Fakes\" />
     <Folder Include="ServerModule\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />

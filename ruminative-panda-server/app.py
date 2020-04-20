@@ -7,6 +7,10 @@ This can be run with '--test' argument to use fake interfaces with GPIO
 
 import sys
 import ServerModule.Server as server
+import threading
+
+
+condition = threading.Condition()
 
 test_run = False
 if len(sys.argv) > 0:
@@ -14,11 +18,13 @@ if len(sys.argv) > 0:
         test_run = True
 
 if test_run:
-    from DomainModule.FakePanda import FakePanda
+    from Fakes.FakePanda import FakePanda
+    from Fakes.FakeCamera import FakeCamera
     robot = FakePanda()
+    camera = FakeCamera.new(condition)
 
 
-server.setup(robot)
+server.setup(robot, camera, condition)
 # Make the WSGI interface available at the top level so wfastcgi can get it.
 wsgi_app = server.get_app().wsgi_app
 
