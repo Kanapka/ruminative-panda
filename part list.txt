@@ -1,0 +1,3 @@
+encoder disk (dysk enkodera)
+sensor (transoptor szczelinowy)
+
