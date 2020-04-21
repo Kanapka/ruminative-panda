@@ -49,7 +49,7 @@ def stream_generator():
             __condition.wait()
             yield __camera.get_frame()
 
-@__app.route('/camera.mjpeg')
+@__app.route('/camera.mjpeg', methods=['GET'])
 def camera_feed():
     return Response(stream_generator(), mimetype = 'multipart/x-mixed-replace; boundary=frame')
 
