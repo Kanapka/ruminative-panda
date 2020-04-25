@@ -46,8 +46,11 @@ def demo_page():
 def stream_generator():
     while True:
         with __condition:
-            __condition.wait()
-            yield __camera.get_frame()
+            try:
+                __condition.wait()
+                yield __camera.get_frame()
+            finally:
+                pass
 
 @__app.route('/camera.mjpeg', methods=['GET'])
 def camera_feed():
