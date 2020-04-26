@@ -25,6 +25,17 @@
       animation: sk-rotate 2.0s infinite linear;
     }
 
+    .container {
+      margin: 30vh auto;
+      width: 80px;
+      height: 80px;
+      position: relative;
+      text-align: center;
+
+      -webkit-animation: sk-rotate 2.0s infinite linear;
+      animation: sk-rotate 2.0s infinite linear;
+    }
+
     .dot1,
     .dot2 {
       width: 60%;
@@ -88,11 +99,13 @@
 </head>
 
 <body>
-  <div id="spinner">
-    <div class="dot1"></div>
-    <div class="dot2"></div>
-  </div>
   <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="spinner">
+    <div class="container">
+      <div class="dot1"></div>
+      <div class="dot2"></div>
+    </div>
+  </div>
   <div id="root"></div>
 </body>
 
