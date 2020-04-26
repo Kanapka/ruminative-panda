@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { CameraFeed } from './components/CameraFeed'
 import { Grid, ThemeProvider } from '@material-ui/core';
-import { ConnectionStatus } from './components/ConnectionStatus';
+import { ConnectionStatusContainer } from './containers/ConnectionStatusContainer';
 import { Status } from './components/Status';
 import { Modules } from './components/Modules';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -20,7 +20,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Grid container spacing={3}>
           <Grid item xs={2}>
-            <ConnectionStatus />
+            <ConnectionStatusContainer />
           </Grid>
           <Grid item xs={6}>
             <CameraFeed />

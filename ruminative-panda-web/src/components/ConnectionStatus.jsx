@@ -1,19 +1,47 @@
 import React from 'react';
-import { env } from '../environments/env-test'
-import { Card, Button, Typography, CardContent, CardActions } from '@material-ui/core'
+import PropTypes from 'prop-types';
+import { Card, Button, Typography, CardContent, CardActions } from '@material-ui/core';
 
-class ConnectionStatus extends React.Component {
-    render() {
-        return <Card>
+const ConnectionStatus = ({ onConnect, onDisconnect, connectionStatus }) => {
+    const textStatus = (connected) => {
+        return connected
+            ? "Connected"
+            : "Offline"
+    }
+
+    const buttonText = (connected) => {
+        return connected
+            ? "Disconnect"
+            : "Connect"
+    }
+
+    const onClick = (e) => {
+        connectionStatus
+            ? onDisconnect()
+            : onConnect()
+    }
+
+    return (
+        <Card>
             <CardContent>
                 <Typography variant="h6" color="textPrimary">Connection</Typography>
-                <Typography variant="subtitle1" color="secondary">Offline</Typography>
+                <Typography variant="subtitle1" color="secondary">{textStatus(connectionStatus)}</Typography>
             </CardContent>
             <CardActions>
-                <Button color="primary">Connect</Button>
+                <Button
+                    color="primary"
+                    onClick={onClick}>
+                    {buttonText(connectionStatus)}
+                </Button>
             </CardActions>
         </Card>
-    }
+    )
+}
+
+ConnectionStatus.propTypes = {
+    onConnect: PropTypes.func.isRequired,
+    onDisconnect: PropTypes.func.isRequired,
+    connectionStatus: PropTypes.bool.isRequired
 }
 
 export {
