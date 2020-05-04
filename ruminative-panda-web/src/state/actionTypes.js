@@ -1,19 +1,20 @@
 const actions = {
-    CONNECT: 'Connect',
-    DISCONNECT: 'Disconnect'
-}
+    START_CONNECTION: 'StartConnection',
+    CONNECTION_FAILED: 'ConnectionFailed',
+    CONNECTED: 'Connected',
+    DISCONNECT: 'Disconnect',
+    DISCONNECTED: 'Disconnected',
 
-const actionCreators = {
-    connect() {
-        return { type: actions.CONNECT };
-    },
+    GO_FORWARD: 'GoForward',
+    GO_BACKWARD: 'GoBackward',
+    GO_LEFT: 'GoLeft',
+    GO_RIGHT: 'GoRight',
 
-    disconnect() {
-        return { type: actions.DISCONNECT };
-    }
+    GET_STATUS: 'GetStatus',
+    STATUS_RECEIVED: 'StatusReceived',
+    GET_STATUS_FAILED: 'GetStatusFailed'
 }
 
 export {
-    actions,
-    actionCreators
+    actions
 }

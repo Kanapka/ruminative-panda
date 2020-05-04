@@ -1,7 +1,25 @@
-import { createStore } from 'redux';
-import { pandaApp } from './reducers';
+import {
+    createStore,
+    combineReducers,
+    applyMiddleware
+} from 'redux';
+import {
+    applicationControl,
+    robotStatus
+} from './reducers';
+import thunkMiddleware from 'redux-thunk';
 
-const store = createStore(pandaApp);
+
+const reducer = combineReducers({
+    applicationControl,
+    robotStatus
+});
+
+const store = createStore(
+    reducer,
+    applyMiddleware(
+        thunkMiddleware
+    ));
 
 export {
     store

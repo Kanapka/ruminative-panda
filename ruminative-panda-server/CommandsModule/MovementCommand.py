@@ -1,8 +1,6 @@
 from DomainModule.Direction import Direction
 
 class MovementCommand(object):
-
-
     def __init__(self, *, direction: Direction, speed: int):
         self._direction = direction
         self._speed = speed

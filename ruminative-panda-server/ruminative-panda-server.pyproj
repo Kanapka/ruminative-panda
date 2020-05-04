@@ -33,6 +33,9 @@
     <Compile Include="camera.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CommandsModule\HeadlightCommand.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="CommandsModule\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -40,6 +43,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DomainModule\Direction.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DomainModule\State.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DomainModule\__init__.py">

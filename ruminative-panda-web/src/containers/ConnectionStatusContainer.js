@@ -1,4 +1,4 @@
-import { actionCreators } from '../state/actionTypes';
+import { startConnection, disconnect } from '../state/actionCreators';
 import { connect } from 'react-redux';
 import { ConnectionStatus } from '../components/ConnectionStatus';
 
@@ -10,8 +10,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onConnect: () => dispatch(actionCreators.connect()),
-        onDisconnect: () => dispatch(actionCreators.disconnect())
+        onConnect: () => dispatch(startConnection()),
+        onDisconnect: () => dispatch(disconnect())
     }
 }
 

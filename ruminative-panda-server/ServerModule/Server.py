@@ -1,6 +1,8 @@
 from flask import Flask, request, Response
+import json
 from DomainModule.Direction import Direction
 from CommandsModule.MovementCommand import MovementCommand
+from CommandsModule.HeadlightCommand import HeadlightCommmand
 
 __panda = None
 __app = Flask("lawl")
@@ -23,6 +25,11 @@ def run():
 
 def get_app() -> Flask:
     return __app
+
+@__app.after_request
+def add_header(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
 
 @__app.route('/test', methods=['POST'])
 def hello():
@@ -56,10 +63,21 @@ def stream_generator():
 def camera_feed():
     return Response(stream_generator(), mimetype = 'multipart/x-mixed-replace; boundary=frame')
 
-
 @__app.route('/movement', methods=['POST'])
 def movement():
     payload = request.json
     command = MovementCommand(direction=payload['direction'], speed=payload['speed'])
     state = __panda.handle_movement(command)
-    return state
+    return json.dumps(state, default=lambda x: x.__dict__)
+
+@__app.route('/headlights', methods=['POST'])
+def headlights():
+    payload = request.json
+    command = HeadlightCommmand(enabled=payload['enabled'])
+    state = __panda.handle_headlights(command)
+    return json.dumps(state, default=lambda x: x.__dict__)
+
+@__app.route('/state', methods=['GET'])
+def state():
+    response = json.dumps(state, default=lambda x: x.__dict__)
+    return response;
