@@ -3,39 +3,39 @@ from CommandsModule.HeadlightCommand import HeadlightCommmand
 from DomainModule.State import State
 from DomainModule.Direction import Direction
 
-class FakePanda(object):
+class PandaRobot(object):
 
     def __init__(self): 
         self.state = State()
         pass
 
-    def get_state() -> State:
+    def get_state(self) -> State:
         return self.state
 
     def handle_movement(self, command: MovementCommand) -> State:
         direction = command.direction
         speed = command.speed if command.speed <= 1 and command.speed >= 0 else 0
-        update
+        update = ""
         if direction == Direction.Forward:
-            self.state.motors.forward()
+            self.state.motors.go_forward()
             update = f'Going forward with speed {speed}'
 
         elif direction == Direction.Backward:
             update = f'Going backward with speed {speed}'
-            self.state.motors.backward()
+            self.state.motors.go_backward()
 
         elif direction == Direction.Left:
             update = f'Going left with speed {speed}'
-            self.state.motors.left()
+            self.state.motors.go_left()
 
         elif direction == Direction.Right:
             update = f'Going right with speed {speed}'
-            self.state.motors.right()
+            self.state.motors.go_right()
 
         elif direction == Direction.Stopped:
             speed = 0
             update = f'Stopped, speed: {speed}'
-            self.state.motors.stop()
+            self.state.motors.go_stop()
 
         return self.state
 

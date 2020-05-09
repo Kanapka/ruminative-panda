@@ -15,31 +15,31 @@ class Motors(object):
         self.right = False
         self.left = False
 
-    def forward(self):
+    def go_forward(self):
         self.forward = True
         self.backward = False
         self.right = False
         self.left = False
 
-    def backward(self):
+    def go_backward(self):
         self.forward = False
         self.backward = True
         self.right = False
         self.left = False
 
-    def right(self):
+    def go_right(self):
         self.forward = False
         self.backward = False
         self.right = True
         self.left = False
 
-    def left(self):
+    def go_left(self):
         self.forward = False
         self.backward = False
         self.right = False
         self.left = True
 
-    def stop(self):
+    def go_stop(self):
         self.forward = False
         self.backward = False
         self.right = False

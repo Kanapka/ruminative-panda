@@ -11,7 +11,6 @@
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
-    <WebBrowserUrl>http://localhost</WebBrowserUrl>
     <OutputPath>.</OutputPath>
     <SuppressCollectPythonCloudServiceFiles>true</SuppressCollectPythonCloudServiceFiles>
     <Name>ruminative-panda-server</Name>
@@ -51,10 +50,13 @@
     <Compile Include="DomainModule\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Fakes\FakePanda.py">
+    <Compile Include="DomainModule\PandaRobot.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Fakes\FakeCamera.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Fakes\Motors.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Fakes\__init__.py">

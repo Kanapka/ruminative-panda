@@ -2,7 +2,7 @@ import { actions } from "./actionTypes"
 
 const initialState = {
     connected: false,
-    robot: {
+    robotStatus: {
         motors: {
             forward: true,
             backward: false,
@@ -12,6 +12,12 @@ const initialState = {
         headlights: {
             enabled: true,
         }
+    },
+    robotOrders: {
+        forward: false,
+        backward: false,
+        left: false,
+        right: false,
     }
 }
 
@@ -26,14 +32,34 @@ function applicationControl(state = false, action) {
     }
 }
 
-function robotStatus(state = initialState.robot, action) {
+function robotStatus(state = initialState.robotStatus, action) {
     switch (action.type) {
         case actions.STATUS_RECEIVED:
-            return action.status;
+            if (action.status) {
+                return action.status;
+            }
+            else {
+                return state;
+            }
         default:
             return state;
     }
 }
+
+// function robotControl(state = initialState.robotOrders, action) {
+//     switch (action.type) {
+//         case actions.GO_FORWARD:
+//             break;
+//         case actions.GO_BACKWARD: 
+//             break;
+//         case actions.GO_LEFT: 
+//             break;
+//         case actions.GO_RIGHT: 
+//             break;
+//         case actions.STOP: 
+//             break;
+//     }
+// }
 
 export {
     applicationControl,

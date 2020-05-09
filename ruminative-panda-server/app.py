@@ -18,9 +18,14 @@ if len(sys.argv) > 0:
         test_run = True
 
 if test_run:
-    from Fakes.FakePanda import FakePanda
+    from DomainModule.PandaRobot import PandaRobot
     from Fakes.FakeCamera import FakeCamera
-    robot = FakePanda()
+    robot = PandaRobot()
+    camera = FakeCamera.new(condition)
+else: 
+    from DomainModule import PandaRobot
+    from Fakes.FakeCamera import FakeCamera
+    robot = PandaRobot()
     camera = FakeCamera.new(condition)
 
 

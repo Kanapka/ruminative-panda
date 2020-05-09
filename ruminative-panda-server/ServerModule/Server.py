@@ -29,6 +29,8 @@ def get_app() -> Flask:
 @__app.after_request
 def add_header(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS';
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
     return response
 
 @__app.route('/test', methods=['POST'])
@@ -79,5 +81,6 @@ def headlights():
 
 @__app.route('/state', methods=['GET'])
 def state():
+    state = __panda.get_state()
     response = json.dumps(state, default=lambda x: x.__dict__)
     return response;

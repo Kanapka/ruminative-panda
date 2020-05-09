@@ -26,6 +26,10 @@ function right() {
     return { type: actions.GO_RIGHT };
 }
 
+function stop() {
+    return { type: actions.STOP }
+}
+
 function getStatus() {
     return { type: actions.GET_STATUS };
 }
@@ -36,7 +40,6 @@ function receiveStatus(status) {
         status: status
     };
 }
-
 
 function fetchStatus() {
     return (dispatch) => {
@@ -61,7 +64,7 @@ export {
     backward,
     left,
     right,
-    getStatus,
+    stop,
     receiveStatus,
     fetchStatus
 }

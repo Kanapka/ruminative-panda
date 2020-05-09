@@ -9,6 +9,7 @@ const actions = {
     GO_BACKWARD: 'GoBackward',
     GO_LEFT: 'GoLeft',
     GO_RIGHT: 'GoRight',
+    STOP: 'Stop',
 
     GET_STATUS: 'GetStatus',
     STATUS_RECEIVED: 'StatusReceived',
