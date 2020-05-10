@@ -15,31 +15,24 @@ class PandaRobot(object):
     def handle_movement(self, command: MovementCommand) -> State:
         direction = command.direction
         speed = command.speed if command.speed <= 1 and command.speed >= 0 else 0
-        update = ""
         if direction == Direction.Forward:
             self.state.motors.go_forward()
-            update = f'Going forward with speed {speed}'
 
         elif direction == Direction.Backward:
-            update = f'Going backward with speed {speed}'
             self.state.motors.go_backward()
 
         elif direction == Direction.Left:
-            update = f'Going left with speed {speed}'
             self.state.motors.go_left()
 
         elif direction == Direction.Right:
-            update = f'Going right with speed {speed}'
             self.state.motors.go_right()
 
         elif direction == Direction.Stopped:
             speed = 0
-            update = f'Stopped, speed: {speed}'
             self.state.motors.go_stop()
 
         return self.state
 
     def handle_headlights(self, command: HeadlightCommmand) -> State:
-        update = "Enabled" if command.get_enabled() else "Disabled"
         self.state.headlights.set_enabled(command.enabled)
         return self.state

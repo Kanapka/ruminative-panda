@@ -56,7 +56,7 @@
     <Compile Include="Fakes\FakeCamera.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Fakes\Motors.py">
+    <Compile Include="Fakes\FakeRobot.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Fakes\__init__.py">
@@ -73,6 +73,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="FolderProfile.pubxml" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>

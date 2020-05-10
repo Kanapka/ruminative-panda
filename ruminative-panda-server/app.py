@@ -20,12 +20,14 @@ if len(sys.argv) > 0:
 if test_run:
     from DomainModule.PandaRobot import PandaRobot
     from Fakes.FakeCamera import FakeCamera
-    robot = PandaRobot()
+    from Fakes.FakeRobot import Robot
+    robot = PandaRobot(Robot())
     camera = FakeCamera.new(condition)
 else: 
     from DomainModule import PandaRobot
     from Fakes.FakeCamera import FakeCamera
-    robot = PandaRobot()
+    from gpiozero import Robot
+    robot = PandaRobot(Robot(left=(10, 11), right=(20,25)))
     camera = FakeCamera.new(condition)
 
 
