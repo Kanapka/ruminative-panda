@@ -14,6 +14,10 @@ class Motors(object):
         self.backward = False
         self.right = False
         self.left = False
+        self.speed = 0
+
+    def set_speed(self, new_speed):
+        self.speed = new_speed
 
     def go_forward(self):
         self.forward = True

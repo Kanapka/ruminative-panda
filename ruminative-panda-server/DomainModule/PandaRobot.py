@@ -18,25 +18,26 @@ class PandaRobot(object):
         speed = command.speed if command.speed <= 1 and command.speed >= 0 else 0
         if direction == Direction.Forward:
             self.state.motors.go_forward()
-            self.robot.forward(1)
+            self.robot.forward(speed)
 
         elif direction == Direction.Backward:
             self.state.motors.go_backward()
-            self.robot.backward(1)
+            self.robot.backward(speed)
 
         elif direction == Direction.Left:
             self.state.motors.go_left()
-            self.robot.right(1)
+            self.robot.right(speed)
 
         elif direction == Direction.Right:
             self.state.motors.go_right()
-            self.robot.right(1)
+            self.robot.right(speed)
 
         elif direction == Direction.Stopped:
             speed = 0
             self.state.motors.go_stop()
             self.robot.stop()
 
+        self.state.motors.set_speed(speed)
         return self.state
 
     def handle_headlights(self, command: HeadlightCommmand) -> State:
