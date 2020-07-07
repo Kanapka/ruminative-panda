@@ -5,8 +5,9 @@ from DomainModule.Direction import Direction
 
 class PandaRobot(object):
 
-    def __init__(self): 
+    def __init__(self, robot): 
         self.state = State()
+        self.robot = robot
         pass
 
     def get_state(self) -> State:
@@ -17,19 +18,24 @@ class PandaRobot(object):
         speed = command.speed if command.speed <= 1 and command.speed >= 0 else 0
         if direction == Direction.Forward:
             self.state.motors.go_forward()
+            self.robot.forward(1)
 
         elif direction == Direction.Backward:
             self.state.motors.go_backward()
+            self.robot.backward(1)
 
         elif direction == Direction.Left:
             self.state.motors.go_left()
+            self.robot.right(1)
 
         elif direction == Direction.Right:
             self.state.motors.go_right()
+            self.robot.right(1)
 
         elif direction == Direction.Stopped:
             speed = 0
             self.state.motors.go_stop()
+            self.robot.stop()
 
         return self.state
 

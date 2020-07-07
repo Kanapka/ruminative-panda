@@ -1,16 +1,16 @@
 class Robot: 
-    def forward(speed: int):
+    def forward(self, speed: int):
         print(f'Going forward with speed {speed}')
 
-    def backward(speed: int):
+    def backward(self, speed: int):
         print(f'Going backward with speed {speed}')
 
-    def left(speed: int):
+    def left(self, speed: int):
         print(f'Going left with speed {speed}')
 
-    def right(speed: int):
+    def right(self, speed: int):
         print(f'Going right with speed {speed}')
 
-    def stop():
+    def stop(self):
         print(f'Stopping')
 

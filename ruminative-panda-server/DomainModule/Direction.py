@@ -5,5 +5,5 @@ class Direction(object):
     Backward = "Backward"
     Left = "Left"
     Right = "Right"
-    Stopped = "Stopped"
+    Stopped = "Stop"
 
