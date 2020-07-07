@@ -25,10 +25,10 @@ if test_run:
     camera = FakeCamera.new(condition)
 else: 
     from DomainModule import PandaRobot
-    from Fakes.FakeCamera import FakeCamera
+    from realCamera import Camera
     from gpiozero import Robot
     robot = PandaRobot(Robot(left=(10, 11), right=(20,25)))
-    camera = FakeCamera.new(condition)
+    camera = Camera.new(condition)
 
 
 server.setup(robot, camera, condition)
