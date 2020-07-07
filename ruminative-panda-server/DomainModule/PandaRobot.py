@@ -2,13 +2,18 @@ from CommandsModule.MovementCommand import MovementCommand
 from CommandsModule.HeadlightCommand import HeadlightCommmand
 from DomainModule.State import State
 from DomainModule.Direction import Direction
+"""
+should state be mapped to robot after each command? updating state and 
+pins at the same time seems simpler, but will get out of sync at some point
+
+"""
+
 
 class PandaRobot(object):
 
     def __init__(self, robot): 
         self.state = State()
         self.robot = robot
-        pass
 
     def get_state(self) -> State:
         return self.state

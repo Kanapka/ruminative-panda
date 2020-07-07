@@ -1,0 +1,7 @@
+ - re-check web app to see if the store thing is actually a store
+ - separate reducers and effects (separate files?)
+ - add state and handling for headlights
+ - build the physical PoC (just stuff on breadboard)
+ - finish prints design
+ - print things
+ - build physical thing

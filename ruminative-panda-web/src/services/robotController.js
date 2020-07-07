@@ -1,12 +1,6 @@
 import { store } from '../state/store';
 import {
-    forward,
-    backward,
-    left,
-    right,
-    stop,
     fetchStatus
-
 } from '../state/actionCreators';
 import fetch from 'cross-fetch';
 import { env } from '../environments/env-test'
@@ -44,6 +38,19 @@ function moveRobot(direction) {
     }
 }
 
+function switchHeadlights(enabled) {
+    fetch(
+        `${env.apiUrl}/headlights`,
+        {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify({ enabled: enabled })
+        }
+    );
+}
+
 function createController() {
     let updateId = setInterval(
         () => store.dispatch(fetchStatus()),
@@ -68,6 +75,12 @@ function createController() {
             case 32: // space
                 moveRobot(Directions.STOP);
                 break;
+            case 72: // h
+                switchHeadlights(true);
+                break;
+            default:
+                // no action on unrecognised key
+                break
         }
     }
     document.body.onkeyup = (e) => {

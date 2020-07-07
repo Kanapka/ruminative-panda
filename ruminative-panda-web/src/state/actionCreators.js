@@ -50,7 +50,7 @@ function fetchStatus() {
                 response => {
                     return response.json()
                 },
-                error => console.log("eerror")
+                error => console.log("error")
             )
             .then(json => {
                 dispatch(receiveStatus(json))
