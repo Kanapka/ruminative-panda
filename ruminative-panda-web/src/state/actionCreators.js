@@ -1,6 +1,5 @@
 import { actions } from './actionTypes'
-import { env } from '../environments/env-test'
-import fetch from 'cross-fetch'
+import robotAPI from '../services/robotAPI';
 
 function connect() {
     return { type: actions.START_CONNECTION };
@@ -45,13 +44,7 @@ function fetchStatus() {
     return (dispatch) => {
         dispatch(getStatus());
 
-        return fetch(`${env.apiUrl}/state`)
-            .then(
-                response => {
-                    return response.json()
-                },
-                error => console.log("error")
-            )
+        return robotAPI.getStatus()
             .then(json => {
                 dispatch(receiveStatus(json))
             });
