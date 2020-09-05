@@ -1,3 +1,3 @@
-encoder disk (dysk enkodera)
-sensor (transoptor szczelinowy)
+encoder disk (dysk enkodera) - done 
+sensor (transoptor szczelinowy) - nope, but fuck independent operation for now
 
