@@ -10,44 +10,17 @@ class Headlights(object):
 
 class Motors(object):
     def __init__(self):
-        self.forward = False
-        self.backward = False
-        self.right = False
-        self.left = False
+        self.direction = False
+        self.curve = 0  # -1 is full turn left, +1 is full turn right
         self.speed = 0
+
+    def from_command(command: MovementCommand):
+        self.direction = command.direction
+        self.curve = command.curve
+        self.speed = command.speed
 
     def set_speed(self, new_speed):
         self.speed = new_speed
-
-    def go_forward(self):
-        self.forward = True
-        self.backward = False
-        self.right = False
-        self.left = False
-
-    def go_backward(self):
-        self.forward = False
-        self.backward = True
-        self.right = False
-        self.left = False
-
-    def go_right(self):
-        self.forward = False
-        self.backward = False
-        self.right = True
-        self.left = False
-
-    def go_left(self):
-        self.forward = False
-        self.backward = False
-        self.right = False
-        self.left = True
-
-    def go_stop(self):
-        self.forward = False
-        self.backward = False
-        self.right = False
-        self.left = False
 
 class State(object):
     def __init__(self):

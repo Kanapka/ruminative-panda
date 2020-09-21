@@ -9,7 +9,7 @@ pins at the same time seems simpler, but will get out of sync at some point
 """
 
 
-class PandaRobot(object):
+class Panda(object):
 
     def __init__(self, robot): 
         self.state = State()
@@ -19,30 +19,34 @@ class PandaRobot(object):
         return self.state
 
     def handle_movement(self, command: MovementCommand) -> State:
-        direction = command.direction
-        speed = command.speed if command.speed <= 1 and command.speed >= 0 else 0
-        if direction == Direction.Forward:
-            self.state.motors.go_forward()
-            self.robot.forward(speed)
 
-        elif direction == Direction.Backward:
-            self.state.motors.go_backward()
-            self.robot.backward(speed)
+        self.state.motors.from_command(command)
 
-        elif direction == Direction.Left:
-            self.state.motors.go_left()
-            self.robot.right(speed)
+        #special cases first to be done with them
+        if self.state.motors.curve >= 1:
+            self.robot.right(command.speed)
+            return self.state
 
-        elif direction == Direction.Right:
-            self.state.motors.go_right()
-            self.robot.right(speed)
+        elif self.state.motors.curve <= -1:
+            self.robot.left(command.speed)
+            return self.state
 
-        elif direction == Direction.Stopped:
-            speed = 0
-            self.state.motors.go_stop()
-            self.robot.stop()
+        if(command.direction == Direction.Stopped):
+            self.state.motors.set_speed(0)
+            return self.state
 
-        self.state.motors.set_speed(speed)
+        if command.direction == Direction.Forward:
+            if command.curve > 0:
+                self.robot.forward(command.speed, curve_right=command.curve)
+            else: 
+                self.robot.forward(command.speed, curve_left=command.curve)
+
+        if command.direction == Direction.Backward:
+            if command.curve > 0:
+                self.robot.backward(command.speed, curve_right=command.curve)
+            else:
+                self.robot.backward(command.speed, curve_left=command.curve)
+
         return self.state
 
     def handle_headlights(self, command: HeadlightCommmand) -> State:

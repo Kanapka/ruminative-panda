@@ -29,7 +29,7 @@ def get_app() -> Flask:
 @__app.after_request
 def add_header(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
-    response.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS';
+    response.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS, GET'
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
     return response
 
@@ -68,7 +68,7 @@ def camera_feed():
 @__app.route('/movement', methods=['POST'])
 def movement():
     payload = request.json
-    command = MovementCommand(direction=payload['direction'], speed=payload['speed'])
+    command = MovementCommand(direction=payload['direction'], speed=payload['speed'], curve=payload['curve'])
     state = __panda.handle_movement(command)
     return json.dumps(state, default=lambda x: x.__dict__)
 
