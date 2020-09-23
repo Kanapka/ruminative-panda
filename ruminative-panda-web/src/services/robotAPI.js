@@ -4,12 +4,10 @@ import { env } from '../environments/env-test'
 const Directions = {
     FORWARD: "Forward",
     BACKWARD: "Backward",
-    LEFT: "Left",
-    RIGHT: "Right",
-    STOP: "Stop",
+    STOP: "Stop"
 }
 
-function moveRobot(direction) {
+function moveRobot(direction, speed, curve) {
     if (direction == Directions.STOP) {
         fetch(
             `${env.apiUrl}/movement`,
@@ -18,7 +16,7 @@ function moveRobot(direction) {
                     'Content-Type': 'application/json'
                 },
                 method: 'POST',
-                body: JSON.stringify({ direction: Directions.STOP, speed: 0 })
+                body: JSON.stringify({ direction: Directions.STOP, speed: 0, curve: 0 })
             });
     }
     else {
@@ -29,7 +27,7 @@ function moveRobot(direction) {
                     'Content-Type': 'application/json'
                 },
                 method: 'POST',
-                body: JSON.stringify({ direction: direction, speed: 1 })
+                body: JSON.stringify({ direction, speed, curve })
             });
     }
 }
