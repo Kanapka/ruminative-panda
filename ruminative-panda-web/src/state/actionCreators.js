@@ -23,8 +23,9 @@ function sendMovementCommand(key, isUp) {
         const state = getState();
         const commandArray = state.commandArray;
         const speed = state.commandConfiguration.speed;
-        if (commandArray.stop) {
+        if (commandArray.stop || (!commandArray.forward && !commandArray.backward)) {
             robotAPI.moveRobot(robotAPI.Directions.STOP, 0, 0);
+            console.log("stopping");
             return;
         }
 
@@ -34,7 +35,7 @@ function sendMovementCommand(key, isUp) {
             return;
         }
         if (commandArray.rotateRight && !commandArray.forward && !commandArray.backward) {
-            robotApi.moveRobot(null, speed, 1);
+            robotAPI.moveRobot(null, speed, 1);
             return;
         }
 
@@ -43,6 +44,8 @@ function sendMovementCommand(key, isUp) {
             ? robotAPI.Directions.FORWARD
             : robotAPI.Directions.BACKWARD;
         const curve = (commandArray.right - commandArray.left) * state.commandConfiguration.curve;
+        console.log(commandArray);
+        console.log(`Going ${direction} at speed ${speed} with curve ${curve}`)
         robotAPI.moveRobot(direction, speed, curve);
     }
 }
@@ -68,7 +71,6 @@ export {
     connect as startConnection,
     disconnect,
     sendMovementCommand,
-    stop,
     receiveStatus,
     fetchStatus,
     commandKeyPressed,

@@ -34,6 +34,7 @@ function calculateAvailableKeys() {
     return available;
 }
 const availableCommandKeys = calculateAvailableKeys();
+console.log(availableCommandKeys);
 
 export {
     actions,

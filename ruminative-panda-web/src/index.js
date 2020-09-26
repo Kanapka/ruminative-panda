@@ -6,7 +6,7 @@ import './index.css';
 import App from './App';
 import { store } from './state/store';
 import { Provider } from 'react-redux';
-import { createController } from './services/robotController';
+import { createController } from './services/inputController';
 
 ReactDOM.render(
   <React.StrictMode>

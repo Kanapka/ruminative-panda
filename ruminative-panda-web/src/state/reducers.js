@@ -24,7 +24,7 @@ const initialState = {
     },
     commandConfiguration: {
         speed: 1,
-        curve: 0,
+        curve: 0.5,
     }
 }
 
@@ -65,10 +65,10 @@ function activeCommandKeysReducer(state = initialState.commandArray, action) {
                 case commandKeys.BACKWARD:
                     newCommands.backward = target;
                     return newCommands;
-                case commandKeys.left:
+                case commandKeys.LEFT:
                     newCommands.left = target;
                     return newCommands;
-                case commandKeys.right:
+                case commandKeys.RIGHT:
                     newCommands.right = target;
                     return newCommands;
                 case commandKeys.STOP:
