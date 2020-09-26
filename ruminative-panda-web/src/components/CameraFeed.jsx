@@ -18,7 +18,8 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function image() {
-    return `${env.apiUrl}/camera.mjpeg`
+    return `${env.apiUrl}/camera.mjpg`
+    // return 'http://raspberrypi:8000/stream.mjpg';
 }
 
 function CameraFeed() {

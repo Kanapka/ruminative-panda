@@ -1,6 +1,7 @@
 import threading
 import io
 import picamera
+from threading import Condition
 
 class StreamingOutput(object):
     def __init__(self, cond: threading.Condition):
@@ -33,13 +34,12 @@ class Camera(object):
     def __capture(self):
         with picamera.PiCamera(resolution='640x480', framerate=24) as camera:
             try:
-                output = StreamingOutput()
-                camera.start_recording(output, format='mjpeg')
+                camera.start_recording(self.output, format='mjpeg')
             finally:
                 camera.stop_recording()
 
     def new(condition: threading.Condition):
-        camera = RealCamera(condition)
+        camera = Camera(condition)
         video_feed = threading.Thread(target = camera.__capture)
         video_feed.start()
         return camera

@@ -62,7 +62,7 @@
     <Compile Include="Fakes\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="realCamera.py">
+    <Compile Include="DomainModule\RealCamera.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ServerModule\Server.py">

@@ -14,7 +14,7 @@ class Motors(object):
         self.curve = 0  # -1 is full turn left, +1 is full turn right
         self.speed = 0
 
-    def from_command(command: MovementCommand):
+    def from_command(self, command):
         self.direction = command.direction
         self.curve = command.curve
         self.speed = command.speed

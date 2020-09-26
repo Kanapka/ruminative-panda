@@ -19,9 +19,8 @@ def setup(panda, camera, condition):
 
 def run():
     import os
-    HOST = os.environ.get('SERVER_HOST', 'localhost')
     PORT = 5555
-    __app.run(HOST, PORT)
+    __app.run('0.0.0.0', PORT)
 
 def get_app() -> Flask:
     return __app
@@ -61,7 +60,7 @@ def stream_generator():
             finally:
                 pass
 
-@__app.route('/camera.mjpeg', methods=['GET'])
+@__app.route('/camera.mjpg', methods=['GET'])
 def camera_feed():
     return Response(stream_generator(), mimetype = 'multipart/x-mixed-replace; boundary=frame')
 
