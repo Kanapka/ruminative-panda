@@ -9,9 +9,6 @@ import sys
 import ServerModule.Server as server
 import threading
 
-
-condition = threading.Condition()
-
 test_run = False
 if len(sys.argv) > 0:
     if '--test' in sys.argv:
@@ -19,19 +16,15 @@ if len(sys.argv) > 0:
 
 if test_run:
     from DomainModule.PandaRobot import Panda
-    from Fakes.FakeCamera import FakeCamera
     from Fakes.FakeRobot import Robot
     robot = Panda(Robot())
-    camera = FakeCamera.new(condition)
 else: 
     from DomainModule.PandaRobot import Panda
-    from DomainModule.RealCamera import Camera
     from gpiozero import Robot
     robot = Panda(Robot(left=(10, 11), right=(20,25)))
-    camera = Camera.new(condition)
 
 
-server.setup(robot, camera, condition)
+server.setup(robot)
 # Make the WSGI interface available at the top level so wfastcgi can get it.
 wsgi_app = server.get_app().wsgi_app
 

@@ -3,19 +3,15 @@ import json
 from DomainModule.Direction import Direction
 from CommandsModule.MovementCommand import MovementCommand
 from CommandsModule.HeadlightCommand import HeadlightCommmand
+from DomainModule.RealCamera import Camera
 
 __panda = None
 __app = Flask("lawl")
-__camera = None
-__condition = None
 
-def setup(panda, camera, condition):
+
+def setup(panda):
     global __panda
-    global __camera
-    global __condition
     __panda = panda
-    __camera = camera
-    __condition = condition
 
 def run():
     import os
@@ -36,33 +32,17 @@ def add_header(response):
 def hello():
     return "Alive"
 
-DEMO_PAGE = """
-<html>
-  <head>
-    <title>Video Streaming Demonstration</title>
-  </head>
-  <body>
-    <h1>Video Streaming Demonstration</h1>
-    <img src="camera.mjpeg">
-  </body>
-</html>
-"""
-@__app.route('/cameraDemo', methods=['GET'])
-def demo_page():
-    return DEMO_PAGE
 
-def stream_generator():
+def gen(camera):
+    """Video streaming generator function."""
     while True:
-        with __condition:
-            try:
-                __condition.wait()
-                yield __camera.get_frame()
-            finally:
-                pass
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 @__app.route('/camera.mjpg', methods=['GET'])
 def camera_feed():
-    return Response(stream_generator(), mimetype = 'multipart/x-mixed-replace; boundary=frame')
+    return Response(gen(Camera()), mimetype = 'multipart/x-mixed-replace; boundary=frame')
 
 @__app.route('/movement', methods=['POST'])
 def movement():

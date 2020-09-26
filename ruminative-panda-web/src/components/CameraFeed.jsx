@@ -10,7 +10,8 @@ const useStyles = makeStyles((theme) => ({
     camera: {
         display: 'flex',
         'min-height': 480,
-        'min-width': 640
+        'min-width': 640,
+        'transform': 'scaleY(-1)'
     },
     image: {
         margin: 'auto'
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 function image() {
     return `${env.apiUrl}/camera.mjpg`
-    // return 'http://raspberrypi:8000/stream.mjpg';
+    // return `${env.cameraUrl}/stream.mjpg`;
 }
 
 function CameraFeed() {
