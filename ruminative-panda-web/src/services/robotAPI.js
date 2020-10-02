@@ -17,7 +17,8 @@ function moveRobot(direction, speed, curve) {
                 },
                 method: 'POST',
                 body: JSON.stringify({ direction: Directions.STOP, speed: 0, curve: 0 })
-            });
+            })
+            .catch(err => console.log(err));
     }
     else {
         fetch(
@@ -28,7 +29,8 @@ function moveRobot(direction, speed, curve) {
                 },
                 method: 'POST',
                 body: JSON.stringify({ direction, speed, curve })
-            });
+            })
+            .catch(err => console.log(err));;
     }
 }
 
@@ -41,8 +43,8 @@ function switchHeadlights(enabled) {
             },
             method: 'POST',
             body: JSON.stringify({ enabled: enabled })
-        }
-    );
+        })
+        .catch(err => console.log(err));;
 }
 
 function getStatus() {
@@ -51,7 +53,7 @@ function getStatus() {
             response => {
                 return response.json()
             },
-            error => console.log("error")
+            error => console.log(error)
         )
 }
 

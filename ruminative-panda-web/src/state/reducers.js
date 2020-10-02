@@ -87,6 +87,7 @@ function activeCommandKeysReducer(state = initialState.commandArray, action) {
 }
 
 function commandConfigurationReducer(state = initialState.commandConfiguration, action) {
+    debugger;
     switch (action.type) {
         case actions.SET_CURVE:
             return {
@@ -96,7 +97,7 @@ function commandConfigurationReducer(state = initialState.commandConfiguration, 
         case actions.SET_SPEED:
             return {
                 ...state,
-                curve: action.value,
+                speed: action.value,
             }
         default:
             return state;

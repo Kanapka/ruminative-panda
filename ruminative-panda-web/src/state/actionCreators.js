@@ -1,12 +1,19 @@
 import { actions } from './actionTypes'
 import robotAPI from '../services/robotAPI';
 
-function connect() {
-    return { type: actions.START_CONNECTION };
+function setConnected(isConnected) {
+    return {
+        type: actions.CONNECTED,
+        isConnected
+    }
 }
 
-function disconnect() {
-    return { type: actions.DISCONNECT };
+function setSpeed(value) {
+    return { type: actions.SET_SPEED, value }
+}
+
+function setCurve(value) {
+    return { type: actions.SET_CURVE, value }
 }
 
 function getStatus() {
@@ -64,14 +71,21 @@ function fetchStatus() {
         return robotAPI.getStatus()
             .then(json => {
                 dispatch(receiveStatus(json))
+                dispatch(setConnected(true))
+            })
+            .catch(err => {
+                dispatch(setConnected(false))
             });
     };
 }
-export {
-    connect as startConnection,
-    disconnect,
+
+const actionCreators = {
+    setSpeed,
+    setCurve,
     sendMovementCommand,
-    receiveStatus,
     fetchStatus,
     commandKeyPressed,
+}
+export {
+    actionCreators
 }

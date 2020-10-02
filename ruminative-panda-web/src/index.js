@@ -19,4 +19,5 @@ ReactDOM.render(
 let spinner = document.getElementById('spinner');
 spinner.parentNode.removeChild(spinner);
 
-const controller = createController();
+
+const controller = createController(store);

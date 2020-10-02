@@ -13,10 +13,10 @@ import thunkMiddleware from 'redux-thunk';
 
 
 const reducer = combineReducers({
-    applicationControl,
+    connected: applicationControl,
+    robotStatus,
     commandArray: activeCommandKeysReducer,
     commandConfiguration: commandConfigurationReducer,
-    robotStatus
 });
 
 const store = createStore(

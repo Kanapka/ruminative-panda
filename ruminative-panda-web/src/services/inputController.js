@@ -1,25 +1,25 @@
-import { store } from '../state/store';
+
 import {
-    fetchStatus, sendMovementCommand
+    actionCreators as actions
 } from '../state/actionCreators';
 import { availableCommandKeys } from '../state/actionTypes';
 
-function createController() {
+function createController(store) {
     let updateId = setInterval(
-        () => store.dispatch(fetchStatus()),
-        20000);
+        () => store.dispatch(actions.fetchStatus()),
+        100000);
     document.body.onkeydown = (e) => {
         if (e.repeat) {
             return;
         }
         console.log(`Pressed ${e.key} (${e.keyCode})`)
         if (availableCommandKeys.some(k => k == e.keyCode)) {
-            store.dispatch(sendMovementCommand(e.keyCode, true));
+            store.dispatch(actions.sendMovementCommand(e.keyCode, true));
         }
     }
     document.body.onkeyup = (e) => {
         if (availableCommandKeys.some(k => k == e.keyCode)) {
-            store.dispatch(sendMovementCommand(e.keyCode, false))
+            store.dispatch(actions.sendMovementCommand(e.keyCode, false))
         }
     }
 }
