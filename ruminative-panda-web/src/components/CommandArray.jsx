@@ -6,7 +6,9 @@ function CommandArray({
     backward,
     left,
     right,
-    headlight
+    rotateRight,
+    rotateLeft,
+    headlight,
 }) {
 
     const toVariant = (value) => {
@@ -32,6 +34,8 @@ function CommandArray({
                         {button(backward, 'Backward')}
                         {button(left, 'Left')}
                         {button(right, 'Right')}
+                        {button(rotateRight, 'Rotate R')}
+                        {button(rotateLeft, 'Rotate L')}
                         {button(headlight, 'Headlight')}
                     </ButtonGroup>
 

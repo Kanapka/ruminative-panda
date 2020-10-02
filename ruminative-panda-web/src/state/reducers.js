@@ -18,7 +18,9 @@ const initialState = {
         forward: false,
         backward: false,
         left: false,
+        rotateLeft: false,
         right: false,
+        rotateRight: false,
         stop: false,
         headlight: false,
     },
@@ -54,6 +56,7 @@ function robotStatus(state = initialState.robotStatus, action) {
 }
 
 function activeCommandKeysReducer(state = initialState.commandArray, action) {
+    debugger;
     switch (action.type) {
         case actions.COMMAND_KEY_PRESSED:
             const target = action.isUp;
@@ -68,8 +71,14 @@ function activeCommandKeysReducer(state = initialState.commandArray, action) {
                 case commandKeys.LEFT:
                     newCommands.left = target;
                     return newCommands;
+                case commandKeys.ROTATE_LEFT:
+                    newCommands.rotateLeft = target;
+                    return newCommands;
                 case commandKeys.RIGHT:
                     newCommands.right = target;
+                    return newCommands;
+                case commandKeys.ROTATE_RIGHT:
+                    newCommands.rotateRight = target;
                     return newCommands;
                 case commandKeys.STOP:
                     newCommands.stop = target;
@@ -87,7 +96,6 @@ function activeCommandKeysReducer(state = initialState.commandArray, action) {
 }
 
 function commandConfigurationReducer(state = initialState.commandConfiguration, action) {
-    debugger;
     switch (action.type) {
         case actions.SET_CURVE:
             return {

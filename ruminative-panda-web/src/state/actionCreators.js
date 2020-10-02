@@ -37,11 +37,11 @@ function sendMovementCommand(key, isUp) {
         }
 
         //rotations
-        if (commandArray.rotateLeft && !commandArray.forward && !commandArray.backward) {
+        if (commandArray.rotateLeft) {
             robotAPI.moveRobot(null, speed, -1);
             return;
         }
-        if (commandArray.rotateRight && !commandArray.forward && !commandArray.backward) {
+        if (commandArray.rotateRight) {
             robotAPI.moveRobot(null, speed, 1);
             return;
         }

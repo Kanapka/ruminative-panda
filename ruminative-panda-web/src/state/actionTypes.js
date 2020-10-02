@@ -19,7 +19,9 @@ const commandKeys = {
     FORWARD: 87, //w
     BACKWARD: 83, //s
     LEFT: 65, //a
+    ROTATE_LEFT: 81, //q
     RIGHT: 68, //d
+    ROTATE_RIGHT: 69, //e
     STOP: 32, //space
     HEADLIGHT: 72 //h
 }

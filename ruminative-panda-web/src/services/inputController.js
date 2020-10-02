@@ -12,6 +12,7 @@ function createController(store) {
         if (e.repeat) {
             return;
         }
+        debugger;
         console.log(`Pressed ${e.key} (${e.keyCode})`)
         if (availableCommandKeys.some(k => k == e.keyCode)) {
             store.dispatch(actions.sendMovementCommand(e.keyCode, true));

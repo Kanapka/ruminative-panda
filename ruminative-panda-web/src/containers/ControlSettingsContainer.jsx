@@ -18,6 +18,8 @@ const mapStateToProps = (state) => {
             || state.commandArray.backward
             || state.commandArray.left
             || state.commandArray.right
+            || state.commandArray.rotateRight
+            || state.commandArray.rotateLeft
     }
 }
 
