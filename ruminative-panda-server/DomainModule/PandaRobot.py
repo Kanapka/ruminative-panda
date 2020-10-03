@@ -11,9 +11,10 @@ pins at the same time seems simpler, but will get out of sync at some point
 
 class Panda(object):
 
-    def __init__(self, robot): 
+    def __init__(self, robot, servo): 
         self.state = State()
         self.robot = robot
+        self.servo = servo
 
     def get_state(self) -> State:
         return self.state
@@ -22,30 +23,31 @@ class Panda(object):
 
         self.state.motors.from_command(command)
 
-        #special cases first to be done with them
-        if self.state.motors.curve >= 1:
+        curve_scale = 0.4
+        curve = command.curve
+        if curve > 1:
+            curve = 1
+        if curve < -1:
+            curve = -1
+
+        curve = curve * curve_scale
+
+        self.servo.value = curve
+
+        if command.direction == Direction.RotateRight:
             self.robot.right(command.speed)
-            return self.state
 
-        elif self.state.motors.curve <= -1:
+        if command.direction == Direction.RotateLeft:
             self.robot.left(command.speed)
-            return self.state
 
-        if(command.direction == Direction.Stopped):
+        if command.direction == Direction.Stopped:
             self.state.motors.set_speed(0)
-            return self.state
 
         if command.direction == Direction.Forward:
-            if command.curve > 0:
-                self.robot.forward(command.speed, curve_right=command.curve)
-            else: 
-                self.robot.forward(command.speed, curve_left=command.curve)
+            self.robot.forward(command.speed)
 
         if command.direction == Direction.Backward:
-            if command.curve > 0:
-                self.robot.backward(command.speed, curve_right=command.curve)
-            else:
-                self.robot.backward(command.speed, curve_left=command.curve)
+            self.robot.backward(command.speed)
 
         return self.state
 

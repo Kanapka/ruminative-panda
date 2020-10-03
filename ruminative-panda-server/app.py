@@ -21,10 +21,12 @@ if test_run:
 else: 
     from DomainModule.PandaRobot import Panda
     from gpiozero import Robot
+    from gpiozero import Servo
     robot = Panda(Robot(left=(10, 11), right=(20,25)))
+    servo = Servo(16)
 
 
-server.setup(robot)
+server.setup(robot, servo)
 # Make the WSGI interface available at the top level so wfastcgi can get it.
 wsgi_app = server.get_app().wsgi_app
 
