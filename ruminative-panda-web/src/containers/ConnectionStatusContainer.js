@@ -1,4 +1,3 @@
-import { startConnection, disconnect } from '../state/actionCreators';
 import { connect } from 'react-redux';
 import { ConnectionStatus } from '../components/ConnectionStatus';
 
@@ -8,14 +7,8 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onConnect: () => dispatch(startConnection()),
-        onDisconnect: () => dispatch(disconnect())
-    }
-}
 
-const ConnectionStatusContainer = connect(mapStateToProps, mapDispatchToProps)(ConnectionStatus);
+const ConnectionStatusContainer = connect(mapStateToProps)(ConnectionStatus);
 
 export {
     ConnectionStatusContainer

@@ -1,4 +1,4 @@
-import { actions } from "./actionTypes"
+import { actions, commandKeys } from "./actionTypes"
 
 const initialState = {
     connected: false,
@@ -11,13 +11,22 @@ const initialState = {
         },
         headlights: {
             enabled: true,
-        }
+        },
+        modules: []
     },
-    robotOrders: {
+    commandArray: {
         forward: false,
         backward: false,
         left: false,
+        rotateLeft: false,
         right: false,
+        rotateRight: false,
+        stop: false,
+        headlight: false,
+    },
+    commandConfiguration: {
+        speed: 1,
+        curve: 0.5,
     }
 }
 
@@ -46,22 +55,66 @@ function robotStatus(state = initialState.robotStatus, action) {
     }
 }
 
-// function robotControl(state = initialState.robotOrders, action) {
-//     switch (action.type) {
-//         case actions.GO_FORWARD:
-//             break;
-//         case actions.GO_BACKWARD: 
-//             break;
-//         case actions.GO_LEFT: 
-//             break;
-//         case actions.GO_RIGHT: 
-//             break;
-//         case actions.STOP: 
-//             break;
-//     }
-// }
+function activeCommandKeysReducer(state = initialState.commandArray, action) {
+    debugger;
+    switch (action.type) {
+        case actions.COMMAND_KEY_PRESSED:
+            const target = action.isUp;
+            const newCommands = { ...state }
+            switch (action.key) {
+                case commandKeys.FORWARD:
+                    newCommands.forward = target;
+                    return newCommands;
+                case commandKeys.BACKWARD:
+                    newCommands.backward = target;
+                    return newCommands;
+                case commandKeys.LEFT:
+                    newCommands.left = target;
+                    return newCommands;
+                case commandKeys.ROTATE_LEFT:
+                    newCommands.rotateLeft = target;
+                    return newCommands;
+                case commandKeys.RIGHT:
+                    newCommands.right = target;
+                    return newCommands;
+                case commandKeys.ROTATE_RIGHT:
+                    newCommands.rotateRight = target;
+                    return newCommands;
+                case commandKeys.STOP:
+                    newCommands.stop = target;
+                    return newCommands;
+                case commandKeys.HEADLIGHT:
+                    newCommands.headlight = target;
+                    return newCommands;
+                default:
+                    //no change on unrecognised key
+                    return state;
+            }
+        default:
+            return state;
+    }
+}
+
+function commandConfigurationReducer(state = initialState.commandConfiguration, action) {
+    switch (action.type) {
+        case actions.SET_CURVE:
+            return {
+                ...state,
+                curve: action.value,
+            };
+        case actions.SET_SPEED:
+            return {
+                ...state,
+                speed: action.value,
+            }
+        default:
+            return state;
+    }
+}
 
 export {
     applicationControl,
+    activeCommandKeysReducer,
+    commandConfigurationReducer,
     robotStatus
 }

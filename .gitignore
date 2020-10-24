@@ -1,3 +1,7 @@
+#processed prints
+*.mtl
+*.gcode
+
 .DS_Store
 .env
 .flaskenv

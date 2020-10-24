@@ -9,40 +9,46 @@ pins at the same time seems simpler, but will get out of sync at some point
 """
 
 
-class PandaRobot(object):
+class Panda(object):
 
-    def __init__(self, robot): 
+    def __init__(self, robot, servo): 
         self.state = State()
         self.robot = robot
+        self.servo = servo
 
     def get_state(self) -> State:
         return self.state
 
     def handle_movement(self, command: MovementCommand) -> State:
-        direction = command.direction
-        speed = command.speed if command.speed <= 1 and command.speed >= 0 else 0
-        if direction == Direction.Forward:
-            self.state.motors.go_forward()
-            self.robot.forward(speed)
 
-        elif direction == Direction.Backward:
-            self.state.motors.go_backward()
-            self.robot.backward(speed)
+        self.state.motors.from_command(command)
 
-        elif direction == Direction.Left:
-            self.state.motors.go_left()
-            self.robot.right(speed)
+        curve_scale = 0.4
+        curve = command.curve
+        if curve > 1:
+            curve = 1
+        if curve < -1:
+            curve = -1
 
-        elif direction == Direction.Right:
-            self.state.motors.go_right()
-            self.robot.right(speed)
+        curve = curve * curve_scale
 
-        elif direction == Direction.Stopped:
-            speed = 0
-            self.state.motors.go_stop()
-            self.robot.stop()
+        self.servo.value = curve
 
-        self.state.motors.set_speed(speed)
+        if command.direction == Direction.RotateRight:
+            self.robot.right(command.speed)
+
+        if command.direction == Direction.RotateLeft:
+            self.robot.left(command.speed)
+
+        if command.direction == Direction.Stopped:
+            self.state.motors.set_speed(0)
+
+        if command.direction == Direction.Forward:
+            self.robot.forward(command.speed)
+
+        if command.direction == Direction.Backward:
+            self.robot.backward(command.speed)
+
         return self.state
 
     def handle_headlights(self, command: HeadlightCommmand) -> State:

@@ -3,25 +3,20 @@ import json
 from DomainModule.Direction import Direction
 from CommandsModule.MovementCommand import MovementCommand
 from CommandsModule.HeadlightCommand import HeadlightCommmand
+from DomainModule.RealCamera import Camera
 
 __panda = None
 __app = Flask("lawl")
-__camera = None
-__condition = None
 
-def setup(panda, camera, condition):
+
+def setup(panda):
     global __panda
-    global __camera
-    global __condition
     __panda = panda
-    __camera = camera
-    __condition = condition
 
 def run():
     import os
-    HOST = os.environ.get('SERVER_HOST', 'localhost')
     PORT = 5555
-    __app.run(HOST, PORT)
+    __app.run('0.0.0.0', PORT)
 
 def get_app() -> Flask:
     return __app
@@ -29,7 +24,7 @@ def get_app() -> Flask:
 @__app.after_request
 def add_header(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
-    response.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS';
+    response.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS, GET'
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
     return response
 
@@ -37,38 +32,22 @@ def add_header(response):
 def hello():
     return "Alive"
 
-DEMO_PAGE = """
-<html>
-  <head>
-    <title>Video Streaming Demonstration</title>
-  </head>
-  <body>
-    <h1>Video Streaming Demonstration</h1>
-    <img src="camera.mjpeg">
-  </body>
-</html>
-"""
-@__app.route('/cameraDemo', methods=['GET'])
-def demo_page():
-    return DEMO_PAGE
 
-def stream_generator():
+def gen(camera):
+    """Video streaming generator function."""
     while True:
-        with __condition:
-            try:
-                __condition.wait()
-                yield __camera.get_frame()
-            finally:
-                pass
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
-@__app.route('/camera.mjpeg', methods=['GET'])
+@__app.route('/camera.mjpg', methods=['GET'])
 def camera_feed():
-    return Response(stream_generator(), mimetype = 'multipart/x-mixed-replace; boundary=frame')
+    return Response(gen(Camera()), mimetype = 'multipart/x-mixed-replace; boundary=frame')
 
 @__app.route('/movement', methods=['POST'])
 def movement():
     payload = request.json
-    command = MovementCommand(direction=payload['direction'], speed=payload['speed'])
+    command = MovementCommand(direction=payload['direction'], speed=payload['speed'], curve=payload['curve'])
     state = __panda.handle_movement(command)
     return json.dumps(state, default=lambda x: x.__dict__)
 
